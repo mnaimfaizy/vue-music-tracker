@@ -31,6 +31,17 @@ export default defineStore('user', {
       await auth.signOut()
 
       this.userLoggedIn = false
+    },
+    async sendPasswordReset(email) {
+      // Action code settings for custom password reset handling
+      const actionCodeSettings = {
+        // URL to redirect to after clicking the reset link
+        // The oobCode parameter will be automatically appended by Firebase
+        url: window.location.origin + '/reset-password',
+        handleCodeInApp: false
+      }
+      
+      await auth.sendPasswordResetEmail(email, actionCodeSettings)
     }
   }
 })

@@ -26,7 +26,7 @@
           </div>
 
           <!-- Tabs -->
-          <ul class="flex flex-wrap mb-4">
+          <ul class="flex flex-wrap mb-4" v-if="tab !== 'forgot'">
             <li class="flex-auto text-center">
               <a
                 class="block rounded py-3 px-4 transition"
@@ -53,10 +53,17 @@
             </li>
           </ul>
 
+          <!-- Forgot Password Title -->
+          <div v-if="tab === 'forgot'" class="mb-4">
+            <h3 class="text-xl font-semibold text-gray-700">{{ $t('forgot_password.title') }}</h3>
+          </div>
+
           <!-- Login Form -->
-          <app-login-form v-if="tab === 'login'" />
+          <app-login-form v-if="tab === 'login'" @forgot-password="tab = 'forgot'" />
           <!-- Registration Form -->
-          <app-register-form v-else />
+          <app-register-form v-else-if="tab === 'register'" />
+          <!-- Forgot Password Form -->
+          <app-forgot-password-form v-else-if="tab === 'forgot'" @back-to-login="tab = 'login'" />
         </div>
       </div>
     </div>
@@ -68,12 +75,14 @@ import useModalStore from '@/stores/modal'
 
 import AppLoginForm from './LoginForm.vue'
 import AppRegisterForm from './RegisterForm.vue'
+import AppForgotPasswordForm from './ForgotPasswordForm.vue'
 
 export default {
   name: 'Auth',
   components: {
     AppLoginForm,
-    AppRegisterForm
+    AppRegisterForm,
+    AppForgotPasswordForm
   },
   data() {
     return {

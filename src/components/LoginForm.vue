@@ -29,6 +29,16 @@
       />
       <ErrorMessage class="text-red-600" name="password" />
     </div>
+    <!-- Forgot Password Link -->
+    <div class="mb-3 text-right">
+      <a
+        href="#"
+        class="text-sm text-purple-600 hover:text-purple-700"
+        @click.prevent="$emit('forgot-password')"
+      >
+        {{ $t('forgot_password.link') }}
+      </a>
+    </div>
     <button
       type="submit"
       class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
@@ -44,6 +54,7 @@ import useUserStore from '@/stores/user'
 
 export default {
   name: 'LoginForm',
+  emits: ['forgot-password'],
   data() {
     return {
       loginSchema: {

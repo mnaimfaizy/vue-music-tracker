@@ -12,6 +12,31 @@
   "manage": {
     "my_songs": "My Songs"
   },
+  "forgot_password": {
+    "title": "Reset Password",
+    "link": "Forgot password?",
+    "instructions": "Enter your email address and we'll send you a link to reset your password.",
+    "send_reset_link": "Send Reset Link",
+    "back_to_login": "Back to Login",
+    "sending": "Sending reset link...",
+    "success": "Password reset link sent! Check your email.",
+    "error": "Failed to send reset link. Please check your email address."
+  },
+  "reset_password": {
+    "title": "Reset Your Password",
+    "new_password": "New Password",
+    "new_password_placeholder": "Enter new password",
+    "confirm_password": "Confirm Password",
+    "confirm_password_placeholder": "Confirm new password",
+    "submit": "Reset Password",
+    "resetting": "Resetting your password...",
+    "success": "Password reset successfully!",
+    "error": "Failed to reset password. Please try again.",
+    "invalid_link": "Invalid or missing reset link.",
+    "expired_link": "This reset link has expired or is invalid.",
+    "complete_message": "Your password has been successfully reset. You can now log in with your new password.",
+    "go_to_login": "Go to Login"
+  },
   "about": {
     "hero_title": "About Music Tracker",
     "hero_subtitle": "Your personal music streaming and sharing platform",
