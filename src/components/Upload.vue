@@ -5,21 +5,40 @@
       <i class="fas fa-upload float-right text-green-400 text-2xl"></i>
     </div>
     <div class="p-6">
+      <!-- Upload Limit Error -->
+      <div
+        v-if="uploadLimitError"
+        class="text-white text-center font-bold p-4 mb-4 rounded bg-red-500"
+      >
+        Upload limit reached! You can only upload {{ MAX_SONGS }} tracks during testing.
+      </div>
+      <div
+        v-else-if="!canUpload"
+        class="text-white text-center font-bold p-4 mb-4 rounded bg-yellow-500"
+      >
+        You have reached the maximum limit of {{ MAX_SONGS }} tracks.
+      </div>
+      <div v-else class="text-sm text-gray-600 mb-4">
+        {{ remainingSlots }} of {{ MAX_SONGS }} upload slots remaining
+      </div>
       <!-- Upload Dropbox -->
       <div
-        class="w-full px-10 py-20 rounded text-center cursor-pointer border border-dashed border-gray-400 text-gray-400 transition duration-500 hover:text-white hover:bg-green-400 hover:border-green-400 hover:border-solid"
-        :class="{ 'bg-green-400 border-green-400 border-solid': is_dragover }"
+        class="w-full px-10 py-20 rounded text-center border border-dashed transition duration-500"
+        :class="[
+          canUpload ? 'cursor-pointer border-gray-400 text-gray-400 hover:text-white hover:bg-green-400 hover:border-green-400 hover:border-solid' : 'cursor-not-allowed border-gray-300 text-gray-300 bg-gray-100',
+          { 'bg-green-400 border-green-400 border-solid': is_dragover && canUpload }
+        ]"
         @drag.prevent.stop=""
         @dragstart.prevent.stop=""
         @dragend.prevent.stop="is_dragover = false"
-        @dragover.prevent.stop="is_dragover = true"
-        @dragenter.prevent.stop="is_dragover = true"
+        @dragover.prevent.stop="canUpload && (is_dragover = true)"
+        @dragenter.prevent.stop="canUpload && (is_dragover = true)"
         @dragleave.prevent.stop="is_dragover = false"
-        @drop.prevent.stop="upload($event)"
+        @drop.prevent.stop="canUpload && upload($event)"
       >
-        <h5>Drop your files here</h5>
+        <h5>{{ canUpload ? 'Drop your files here' : 'Upload limit reached' }}</h5>
       </div>
-      <input type="file" multiple @change="upload($event)" />
+      <input type="file" multiple @change="upload($event)" :disabled="!canUpload" />
       <hr class="my-6" />
       <!-- Progess Bars -->
       <div class="mb-4" v-for="upload in uploads" :key="upload.name">
@@ -48,19 +67,41 @@ export default {
   data() {
     return {
       is_dragover: false,
-      uploads: []
+      uploads: [],
+      uploadLimitError: false,
+      MAX_SONGS: 10
     }
   },
-  props: ['addSong'],
+  props: ['addSong', 'currentSongCount'],
+  computed: {
+    canUpload() {
+      return this.currentSongCount < this.MAX_SONGS
+    },
+    remainingSlots() {
+      return this.MAX_SONGS - this.currentSongCount
+    }
+  },
   methods: {
     upload($event) {
       this.is_dragover = false
+      this.uploadLimitError = false
+
+      if (!this.canUpload) {
+        this.uploadLimitError = true
+        return
+      }
 
       const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files]
-      files.forEach((file) => {
-        if (file.type !== 'audio/mpeg') {
-          return
-        }
+      
+      // Filter files to respect the upload limit
+      const audioFiles = files.filter((file) => file.type === 'audio/mpeg')
+      const allowedFiles = audioFiles.slice(0, this.remainingSlots)
+      
+      if (audioFiles.length > this.remainingSlots) {
+        alert(`You can only upload ${this.remainingSlots} more track(s). You've reached the ${this.MAX_SONGS} track limit for testing.`)
+      }
+
+      allowedFiles.forEach((file) => {
 
         if (!navigator.onLine) {
           this.uploads.push({
