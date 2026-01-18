@@ -35,6 +35,19 @@
       </div>
       <!-- Duration -->
       <div class="player-duration">{{ duration }}</div>
+      <!-- Volume Control -->
+      <div class="flex items-center gap-2 ml-4">
+        <i class="fa text-gray-500" :class="volume === 0 ? 'fa-volume-mute' : volume < 50 ? 'fa-volume-down' : 'fa-volume-up'"></i>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          :value="volume"
+          @input="updateVolume"
+          class="w-20 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          style="accent-color: #10b981"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -45,10 +58,10 @@ import usePlayerStore from '@/stores/player'
 export default {
   name: 'Player',
   methods: {
-    ...mapActions(usePlayerStore, ['toggleAudio', 'updateSeek'])
+    ...mapActions(usePlayerStore, ['toggleAudio', 'updateSeek', 'updateVolume'])
   },
   computed: {
-    ...mapState(usePlayerStore, ['playing', 'duration', 'seek', 'playerProgress', 'current_song'])
+    ...mapState(usePlayerStore, ['playing', 'duration', 'seek', 'playerProgress', 'current_song', 'volume'])
   }
 }
 </script>

@@ -69,7 +69,8 @@ export default {
       is_dragover: false,
       uploads: [],
       uploadLimitError: false,
-      MAX_SONGS: 10
+      MAX_SONGS: 10,
+      MAX_FILE_SIZE: 15 * 1024 * 1024 // 15MB in bytes
     }
   },
   props: ['addSong', 'currentSongCount'],
@@ -95,9 +96,24 @@ export default {
       
       // Filter files to respect the upload limit
       const audioFiles = files.filter((file) => file.type === 'audio/mpeg')
-      const allowedFiles = audioFiles.slice(0, this.remainingSlots)
       
-      if (audioFiles.length > this.remainingSlots) {
+      // Check for oversized files
+      const oversizedFiles = audioFiles.filter((file) => file.size > this.MAX_FILE_SIZE)
+      if (oversizedFiles.length > 0) {
+        const fileNames = oversizedFiles.map((f) => f.name).join(', ')
+        alert(`The following file(s) exceed the 15MB limit: ${fileNames}`)
+      }
+      
+      // Filter out oversized files
+      const validFiles = audioFiles.filter((file) => file.size <= this.MAX_FILE_SIZE)
+      
+      if (validFiles.length === 0) {
+        return
+      }
+      
+      const allowedFiles = validFiles.slice(0, this.remainingSlots)
+      
+      if (validFiles.length > this.remainingSlots) {
         alert(`You can only upload ${this.remainingSlots} more track(s). You've reached the ${this.MAX_SONGS} track limit for testing.`)
       }
 

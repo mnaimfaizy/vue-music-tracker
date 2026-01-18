@@ -37,6 +37,12 @@
         <ol id="playlist">
           <app-song-item v-for="song in songs" :key="song.docID" :song="song" />
         </ol>
+        <!-- Empty State -->
+        <div v-if="!songs.length && !pendingRequest" class="text-center py-12 px-6 text-gray-500">
+          <i class="fas fa-music text-6xl mb-4 text-gray-300"></i>
+          <p class="text-xl font-semibold mb-2">No songs available yet</p>
+          <p>Be the first to upload a track!</p>
+        </div>
         <!-- .. end Playlist -->
       </div>
     </section>
@@ -52,7 +58,7 @@ export default {
   data() {
     return {
       songs: [],
-      maxPerPage: 1,
+      maxPerPage: 25,
       pendingRequest: false
     }
   },

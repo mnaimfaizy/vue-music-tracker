@@ -8,7 +8,8 @@ export default defineStore('player', {
     sound: {},
     seek: '00:00',
     duration: '00:00',
-    playerProgress: '0%'
+    playerProgress: '0%',
+    volume: 100
   }),
   actions: {
     async newSong(song) {
@@ -19,7 +20,8 @@ export default defineStore('player', {
 
       this.sound = new Howl({
         src: [song.url],
-        html5: true
+        html5: true,
+        volume: this.volume / 100
       })
 
       this.sound.play()
@@ -62,6 +64,14 @@ export default defineStore('player', {
 
       this.sound.seek(seconds)
       this.sound.once('seek', this.progress)
+    },
+    updateVolume(event) {
+      const newVolume = event.target.value
+      this.volume = newVolume
+      
+      if (this.sound instanceof Howl) {
+        this.sound.volume(newVolume / 100)
+      }
     }
   },
   getters: {

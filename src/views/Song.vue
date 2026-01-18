@@ -85,6 +85,13 @@
           {{ comment.content }}
         </p>
       </li>
+      <!-- Empty State -->
+      <li v-if="!comments.length" class="p-12 bg-gray-50 border border-gray-200 text-center text-gray-500">
+        <i class="fas fa-comments text-6xl mb-4 text-gray-300"></i>
+        <p class="text-xl font-semibold mb-2">No comments yet</p>
+        <p v-if="userLoggedIn">Be the first to share your thoughts!</p>
+        <p v-else>Login to leave a comment</p>
+      </li>
     </ul>
   </main>
 </template>

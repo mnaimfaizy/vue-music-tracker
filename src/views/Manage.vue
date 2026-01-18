@@ -22,6 +22,12 @@
               :removeSong="removeSong"
               :updateUnsavedFlag="updateUnsavedFlag"
             />
+            <!-- Empty State -->
+            <div v-if="!songs.length" class="text-center py-12 text-gray-500">
+              <i class="fas fa-compact-disc text-6xl mb-4 text-gray-300"></i>
+              <p class="text-xl font-semibold mb-2">No songs uploaded yet</p>
+              <p>Upload your first track using the form on the left!</p>
+            </div>
           </div>
         </div>
       </div>
