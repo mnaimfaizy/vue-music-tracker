@@ -13,6 +13,7 @@
       <vee-field
         name="name"
         type="text"
+        autocomplete="name"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Name"
       />
@@ -24,6 +25,7 @@
       <vee-field
         name="email"
         type="email"
+        autocomplete="email"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Email"
       />
@@ -35,6 +37,7 @@
       <vee-field
         name="age"
         type="number"
+        autocomplete="off"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       />
       <ErrorMessage class="text-red-600" name="age" />
@@ -45,6 +48,7 @@
       <vee-field name="password" :bails="false" v-slot="{ field, errors }">
         <input
           type="password"
+          autocomplete="new-password"
           class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
           placeholder="Password"
           v-bind="field"
@@ -60,6 +64,7 @@
       <vee-field
         name="confirm_password"
         type="password"
+        autocomplete="new-password"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Confirm Password"
       />
@@ -71,6 +76,7 @@
       <vee-field
         as="select"
         name="country"
+        autocomplete="country-name"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
         <option value="USA">USA</option>

@@ -11,6 +11,20 @@ Music Tracker is a Progressive Web Application (PWA) that enables users to:
 - **Comment & Engage**: Leave comments on songs and interact with the community
 - **Offline Support**: PWA capabilities enable offline access to previously loaded content
 
+## 🖼️ Screenshots
+
+![Home](screenshots/app-home.png)
+
+![About](screenshots/app-about.png)
+
+![Manage](screenshots/app-manage.png)
+
+![Register](screenshots/app-register.png)
+
+![Auth Modal](screenshots/app-auth-modal.png)
+
+![Forgot Password](screenshots/app-forgot-password.png)
+
 ## ✨ Key Features
 
 ### 🎼 Music Player

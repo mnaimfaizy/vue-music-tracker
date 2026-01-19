@@ -13,6 +13,7 @@
       <vee-field
         name="email"
         type="email"
+        autocomplete="username"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Enter Email"
       />
@@ -24,6 +25,7 @@
       <vee-field
         name="password"
         type="password"
+        autocomplete="current-password"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         placeholder="Password"
       />
